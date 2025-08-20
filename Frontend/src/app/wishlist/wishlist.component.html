@@ -1,0 +1,44 @@
+<div
+  class="wishlist-container"
+  *ngIf="products$ | async as products; else loading"
+>
+  <div *ngIf="products.length > 0; else empty">
+    <div class="products-grid">
+      <div *ngFor="let product of products" class="product-card">
+        <div class="image" (click)="viewProduct(product.productId)">
+          <img
+            [src]="'https://localhost:7224/' + product.productImage"
+            alt="{{ product.productName }}"
+            class="product-image"
+          />
+        </div>
+        <div class="product-details-container">
+          <div class="product-details">
+            <h3 class="product-name" (click)="viewProduct(product.productId)">
+              {{ product.productName }}
+            </h3>
+            <p class="product-price">₹{{ product.productPrice }}</p>
+          </div>
+          <button
+            class="remove-button"
+            (click)="removeFromWishlist(product.productId)"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="loading-text">Loading wishlist...</p>
+</ng-template>
+
+<ng-template #empty>
+  <div class="empty-container">
+    <img src="wishlist.png" alt="No Wishlist Items" class="empty-image" />
+    <h2 class="empty-heading">No Items in Wishlist</h2>
+    <p class="empty-description">Browse and add products you love!</p>
+  </div>
+</ng-template>

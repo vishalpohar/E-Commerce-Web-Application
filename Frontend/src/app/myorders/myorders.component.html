@@ -1,0 +1,100 @@
+<div *ngIf="ordersResponse$ | async as response; else empty">
+  <div *ngIf="response.data && response.data.length > 0; else empty">
+    <div class="orders-container">
+      <h2>My Orders</h2>
+
+      <div class="order-card" *ngFor="let order of response.data">
+        <div>
+          <div>
+            <div class="order-card-body">
+              <div class="status-section">
+                <h3 class="status-text">{{ order.orderStatus }}</h3>
+                <p
+                  class="arrival-text"
+                  *ngIf="order.orderStatus === 'Processing'"
+                >
+                  Estimated arrival:
+                  {{ getArrivalDate(order.orderDate) | istDate : "date" }}
+                </p>
+              </div>
+
+              <div class="order-items-list" *ngFor="let item of order.items">
+                <div class="order-item" (click)="viewProduct(item.productId)">
+                  <img
+                    class="item-image"
+                    [src]="baseUrl + item.productImageUrl"
+                    alt="{{ item.productName }}"
+                  />
+                  <div class="item-details">
+                    <h4 class="item-name">{{ item.productName }}</h4>
+                    <p class="item-meta">
+                      Price: ₹{{ item.pricePerUnit }} | Qty: {{ item.quantity }}
+                    </p>
+                  </div>
+                  <!-- <button class="btn btn-secondary btn-buy-again">Buy Again</button> -->
+                </div>
+              </div>
+            </div>
+            <div class="order-card-header">
+              <div class="header-section">
+                <span class="header-label">ORDER PLACED</span>
+                <span class="header-value">{{
+                  order.orderDate | istDate : "date"
+                }}</span>
+              </div>
+              <div class="header-section">
+                <span class="header-label">TOTAL AMOUNT</span>
+                <span class="header-value">₹{{ order.totalAmount }}</span>
+              </div>
+              <div class="header-section">
+                <span class="header-label">SHIP TO</span>
+                <span class="header-value address-link"
+                  >{{ order.shippingAddress | slice : 0 : 20 }}...</span
+                >
+              </div>
+              <div class="header-section order-id">
+                <span class="header-label">ORDER # {{ order.orderId }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="d-flex justify-content-between align-items-center mt-4 mb-4 me-5 ms-5"
+    >
+      <button
+        class="btn btn-outline-primary pageButton"
+        (click)="previousPage()"
+        [disabled]="currentPage === 1"
+        [class.disabled-btn]="currentPage === 1"
+      >
+        ⏪ Previous
+      </button>
+
+      <span>
+        Page <strong>{{ response.pageNumber }}</strong> of
+        <strong>{{
+          Math.ceil(response.totalOrders / response.pageSize)
+        }}</strong>
+      </span>
+
+      <button
+        class="btn btn-outline-primary pageButton"
+        (click)="nextPage()"
+        [disabled]="currentPage * pageSize >= totalOrders"
+        [class.disabled-btn]="currentPage * pageSize >= totalOrders"
+      >
+        Next ⏩
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="empty-container">
+    <img src="no-results.png" alt="No MyOrders Items" class="empty-image" />
+    <h2 class="empty-heading">You haven't placed any orders yet.</h2>
+    <p class="empty-description">Browse and order products you love!</p>
+  </div>
+</ng-template>

@@ -1,0 +1,181 @@
+/* Define theme colors and variables for easy customization */
+:root {
+  --primary-color: #0d6efd;
+  --text-color: #333;
+  --text-light: #6c757d;
+  --border-color: #dee2e6;
+  --background-light: #f8f9fa;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-radius: 8px;
+}
+
+.orders-container {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.orders-container h2 {
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* The main container for each order */
+.order-card {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-bottom: 24px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.order-card:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Header section of the card */
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--background-light);
+  padding: 16px 24px;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap; /* Allows sections to wrap on small screens */
+  gap: 16px; /* Space between header items */
+}
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.header-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.address-link {
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Body of the card containing items */
+.order-card-body {
+  padding: 24px;
+}
+
+.status-section {
+  margin-bottom: 20px;
+}
+
+.status-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #198754; /* Green for status */
+  margin: 0;
+}
+
+.arrival-text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* List of items within an order */
+.order-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between items */
+}
+
+/* A single item row */
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.item-details {
+  flex-grow: 1; /* Takes up available space */
+}
+
+.item-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+}
+
+.item-meta {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.disabled-btn {
+  opacity: 0.3;
+  pointer-events: none; /* prevents clicks just in case */
+}
+
+.btn-buy-again {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+/* Loading */
+.loading-text {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Empty State */
+.empty-container {
+  text-align: center;
+  margin-top: 8rem;
+  margin-bottom: 8em;
+}
+
+.empty-image {
+  width: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.empty-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.empty-description {
+  color: #777;
+  font-size: 1rem;
+}

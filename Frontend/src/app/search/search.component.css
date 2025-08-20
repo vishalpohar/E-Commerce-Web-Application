@@ -1,0 +1,15 @@
+/* Ensure all product images have the same height and don't stretch */
+.product-image-fixed {
+  height: 200px; 
+  object-fit: contain; /* This prevents the image from being distorted */
+}
+
+/* Add a subtle lift effect when hovering over a card */
+.product-card-hover {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}

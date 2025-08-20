@@ -1,0 +1,231 @@
+<div class="container py-5">
+  <div *ngIf="!isLoading; else loading" class="fade-in">
+    <div *ngIf="products.length > 0; else empty">
+      <div class="row mb-4">
+        <div class="col">
+          <h1 class="display-6">Your Shopping Cart</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <div *ngFor="let item of products" class="card shadow-sm mb-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center flex-wrap">
+                <div class="col-12 col-md-2 mb-3 mb-md-0">
+                  <img
+                    [src]="'https://localhost:7224/' + item.productImage"
+                    [alt]="item.productName"
+                    class="product-image rounded"
+                  />
+                </div>
+
+                <div class="col-12 col-md-4 mb-3 mb-md-0 px-md-3">
+                  <h5 class="mb-1">{{ item.productName }}</h5>
+                  <p class="text-muted small mb-0">
+                    Available: {{ item.productStock }}
+                  </p>
+                </div>
+
+                <div class="col-6 col-md-2 px-md-2">
+                  <label [for]="'quantity-' + item.productId" class="form-label"
+                    >Quantity</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control text-center"
+                    [id]="'quantity-' + item.productId"
+                    [(ngModel)]="item.quantity"
+                    [max]="item.productStock"
+                    min="1"
+                    (input)="updateQuantity(item)"
+                  />
+                </div>
+
+                <div class="col-6 col-md-4 text-md-end">
+                  <p class="h5 mb-1">
+                    {{
+                      item.quantity * item.productPrice
+                        | currency : "INR" : "symbol" : "1.0-2"
+                    }}
+                  </p>
+                  <button
+                    (click)="removeItem(item.productId)"
+                    class="btn btn-sm btn-outline-danger mt-1"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title mb-3">Order Summary</h4>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Subtotal
+                  <span>{{
+                    totalAmount | currency : "INR" : "symbol" : "1.0-2"
+                  }}</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Shipping
+                  <span class="text-success">Free</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center border-top pt-3"
+                >
+                  <strong class="h5">Total</strong>
+                  <strong class="h5">{{
+                    totalAmount | currency : "INR" : "symbol" : "1.0-2"
+                  }}</strong>
+                </li>
+              </ul>
+              <div class="d-grid mt-4">
+                <button
+                  (click)="toggleCheckout()"
+                  class="btn btn-primary btn-lg"
+                >
+                  Proceed to Checkout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="showCheckout" class="row mt-5 justify-content-center fade-in">
+        <div class="col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-body p-4">
+              <h2 class="mb-4">Checkout Details</h2>
+              <!-- Address Section -->
+              <section class="section address-section">
+                <h2>Shipping Address</h2>
+
+                <div class="address" *ngIf="userAddress">
+                  <div class="options-wrapper">
+                    <button class="options-btn" (click)="toggleOptions()">
+                      <span>⋮</span>
+                    </button>
+
+                    <div class="main-options-container" *ngIf="showOptions">
+                      <div class="options-container">
+                        <span (click)="editAddress()">Edit</span>
+                        <span
+                          style="margin-bottom: -18px"
+                          (click)="removeAddress(userAddress.userId)"
+                          >Remove</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <h3>{{ userAddress.fullName }}</h3>
+                  <div class="address-info">
+                    <p>{{ userAddress.addressLine }}</p>
+                    <p>{{ userAddress.city }}, {{ userAddress.district }}</p>
+                    <p>{{ userAddress.state }}-{{ userAddress.pinCode }}</p>
+                  </div>
+                  <p>{{ userAddress.phone }}</p>
+                </div>
+
+                <div
+                  *ngIf="!userAddress"
+                  class="add-address"
+                  (click)="addAddress()"
+                >
+                  <div class="add-icon">+</div>
+                  <div>Add Address</div>
+                </div>
+
+                <hr />
+
+                <div>
+                  <div class="payment-section">
+                    <div><h2>Payment Method</h2></div>
+                    <fieldset>
+                      <div class="payment-options">
+                        <label class="payment-option">
+                          <input
+                            type="radio"
+                            value="Cash on Delivery"
+                            [(ngModel)]="paymentMode"
+                            name="paymentMode"
+                            required
+                          />
+                          <span>Cash on Delivery</span>
+                        </label>
+                        <label class="payment-option">
+                          <input
+                            type="radio"
+                            value="UPI"
+                            [(ngModel)]="paymentMode"
+                            name="paymentMode"
+                            required
+                          />
+                          <span>UPI</span>
+                        </label>
+                        <label class="payment-option">
+                          <input
+                            type="radio"
+                            value="Card"
+                            [(ngModel)]="paymentMode"
+                            name="paymentMode"
+                            required
+                          />
+                          <span>Credit/Debit Card</span>
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </section>
+
+              <div class="section place-order-section">
+                <button
+                  class="place-order-btn"
+                  [disabled]="isPlacingOrder"
+                  (click)="placeOrder()"
+                >
+                  Place Order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="text-center empty-container">
+    <img src="shopping-cart.png" alt="Empty Cart" class="empty-image mb-4" />
+    <h2 class="display-6">Your cart is empty</h2>
+    <p class="lead text-muted">
+      Looks like you haven't added anything to your cart yet.
+    </p>
+  </div>
+</ng-template>
+
+<app-address
+  #AddressComponent
+  [mode]="formMode"
+  [existingAddress]="existingAddress"
+></app-address>

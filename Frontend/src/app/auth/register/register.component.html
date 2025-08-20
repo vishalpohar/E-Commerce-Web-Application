@@ -1,0 +1,121 @@
+<div class="register-page-wrapper fade-in">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+        <div class="card shadow-lg" style="border-radius: 1rem">
+          <div class="card-body p-0">
+            <div class="row g-0 register-card-body">
+              <div class="col-5 register-info-panel">
+                <div class="p-5 text-white">
+                  <h2 class="fw-bold mb-4">Looks like you're new here!</h2>
+                  <p class="mb-5">
+                    Sign up with your mobile number to get started
+                  </p>
+                </div>
+                <div class="text-white">
+                  <img
+                    src="graphics.png"
+                    alt="Login Graphic"
+                    class="img-fluid"
+                  />
+                </div>
+              </div>
+
+              <div class="col-7">
+                <div class="p-5">
+                  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+                    <div class="form-floating mb-4">
+                      <input
+                        type="text"
+                        id="username"
+                        name="userName"
+                        class="form-control form-control-underline"
+                        placeholder="User Name"
+                        [(ngModel)]="userDetails.userName"
+                        #userName="ngModel"
+                        required
+                        [readonly]="otpTime"
+                      />
+                      <label for="userName">Username</label>
+                      @if((userName?.dirty || userName?.touched)){
+                      @if(userName?.errors?.['required']){
+                      <small class="text-danger">User Name is required.</small>
+                      } }
+                    </div>
+                    <div class="form-floating mb-4">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-control form-control-underline"
+                        placeholder="Email"
+                        [(ngModel)]="userDetails.email"
+                        #emailId="ngModel"
+                        email
+                        required
+                        [readonly]="otpTime"
+                      />
+                      <label for="email">Email</label>
+                      @if((emailId?.dirty || emailId?.touched)){
+                      @if(emailId?.errors?.['required']){
+                      <small class="text-danger"
+                        >Email address is required.</small
+                      >
+                      } @if(emailId?.errors?.['email']){
+                      <small class="text-danger"
+                        >Please enter a valid email address.</small
+                      >
+                      } }
+                    </div>
+                    <div class="form-floating mb-4" *ngIf="otpTime">
+                      <input
+                        type="text"
+                        id="otp"
+                        name="otp"
+                        class="form-control form-control-underline"
+                        placeholder="OTP"
+                        [(ngModel)]="userDetails.otp"
+                        #otp="ngModel"
+                        required
+                      />
+                      <label for="otp">OTP</label>
+                      @if((otp?.dirty || otp?.touched)){
+                      @if(otp?.errors?.['required']){
+                      <small class="text-danger">Otp is required.</small>
+                      }}
+                    </div>
+                    <div class="d-grid gap-2 mt-5">
+                      <button
+                        class="btn btn-primary"
+                        type="submit"
+                        [disabled]="form.invalid"
+                      >
+                        {{ otpTime ? "Verify OTP" : "Send OTP"}}
+                      </button>
+                    </div>
+
+                    <hr class="my-4" />
+                  </form>
+                  <div class="text-center">
+                    <button
+                      class="text-primary fw-bold text-decoration-none border-0 bg-transparent cursor-pointer"
+                      routerLink="/login"
+                    >
+                      Existing User? Log in
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner-border text-warning" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

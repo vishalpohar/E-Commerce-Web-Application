@@ -1,0 +1,117 @@
+<div class="order-container" *ngIf="product; else loading">
+  <!-- Product Section -->
+  <div class="section product-section" *ngIf="product; else loading">
+    <h2>Product Details</h2>
+    <div class="product-card">
+      <img
+        [src]="product.imageUrl"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p class="price">₹{{ product.price }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Section -->
+  <section class="section address-section">
+    <h2>Shipping Address</h2>
+
+    <div class="address" *ngIf="userAddress">
+      <div class="options-wrapper">
+        <button class="options-btn" (click)="toggleOptions()">
+          <span>⋮</span>
+        </button>
+
+        <div class="main-options-container" *ngIf="showOptions">
+          <div class="options-container">
+            <span (click)="editAddress()">Edit</span>
+            <span
+              style="margin-bottom: -18px"
+              (click)="removeAddress(userAddress.userId)"
+              >Remove</span
+            >
+          </div>
+        </div>
+      </div>
+      <h3>{{ userAddress.fullName }}</h3>
+      <div class="address-info">
+        <p>{{ userAddress.addressLine }}</p>
+        <p>{{ userAddress.city }}, {{ userAddress.district }}</p>
+        <p>{{ userAddress.state }}-{{ userAddress.pinCode }}</p>
+      </div>
+      <p>{{ userAddress.phone }}</p>
+    </div>
+
+    <div *ngIf="!userAddress" class="add-address" (click)="addAddress()">
+      <div class="add-icon">+</div>
+      <div>Add Address</div>
+    </div>
+
+    <hr />
+
+    <div>
+      <div class="payment-section">
+        <div><h2>Payment Method</h2></div>
+        <fieldset>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input
+                type="radio"
+                value="Cash on Delivery"
+                [(ngModel)]="paymentMode"
+                name="paymentMode"
+                required
+              />
+              <span>Cash on Delivery</span>
+            </label>
+            <label class="payment-option">
+              <input
+                type="radio"
+                value="UPI"
+                [(ngModel)]="paymentMode"
+                name="paymentMode"
+                required
+              />
+              <span>UPI</span>
+            </label>
+            <label class="payment-option">
+              <input
+                type="radio"
+                value="Card"
+                [(ngModel)]="paymentMode"
+                name="paymentMode"
+                required
+              />
+              <span>Credit/Debit Card</span>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </section>
+
+  <div class="section place-order-section">
+    <button
+      class="place-order-btn"
+      [disabled]="isPlacingOrder"
+      (click)="placeOrder()"
+    >
+      Place Order
+    </button>
+  </div>
+</div>
+
+<!-- Loading Template -->
+<ng-template #loading>
+  <p>Loading product details...</p>
+</ng-template>
+
+<app-address
+  #AddressComponent
+  [mode]="formMode"
+  [existingAddress]="existingAddress"
+></app-address>

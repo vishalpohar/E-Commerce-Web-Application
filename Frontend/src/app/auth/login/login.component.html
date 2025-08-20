@@ -1,0 +1,123 @@
+<div class="login-page-wrapper fade-in">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+        <div class="card shadow-lg" style="border-radius: 1rem">
+          <div class="card-body p-0">
+            <div class="row g-0 login-card-body">
+              <div class="col-5 login-info-panel">
+                <div class="p-5 text-white">
+                  <h2 class="fw-bold mb-4">Login</h2>
+                  <p class="mb-5">
+                    Get access to your Orders, Wishlist and Recommendations
+                  </p>
+                </div>
+                <div class="text-white">
+                  <img
+                    src="graphics.png"
+                    alt="Login Graphic"
+                    class="img-fluid"
+                  />
+                </div>
+              </div>
+
+              <div class="col-7">
+                <div class="p-5">
+                  <form (ngSubmit)="loginVerify(loginForm)" #loginForm="ngForm">
+                    <div class="form-floating mb-4">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-control form-control-underline"
+                        [(ngModel)]="loginDetails.email"
+                        [readonly]="otpTime"
+                        required
+                        minlength="6"
+                        #emailModel="ngModel"
+                        [class.is-invalid]="
+                          emailModel.invalid &&
+                          (emailModel.dirty || emailModel.touched)
+                        "
+                      />
+                      <label for="email">Email</label>
+                      <div
+                        *ngIf="
+                          emailModel.invalid &&
+                          (emailModel.dirty || emailModel.touched)
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="emailModel.errors?.['required']">
+                          Email is required.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-floating mb-4" *ngIf="otpTime">
+                      <input
+                        type="otp"
+                        id="otp"
+                        name="otp"
+                        class="form-control form-control-underline"
+                        [(ngModel)]="loginDetails.otp"
+                        required
+                        minlength="6"
+                        #otpModel="ngModel"
+                        [class.is-invalid]="
+                          otpModel.invalid &&
+                          (otpModel.dirty || otpModel.touched)
+                        "
+                      />
+                      <label for="otp">OTP</label>
+                      <div
+                        *ngIf="
+                          otpModel.invalid &&
+                          (otpModel.dirty || otpModel.touched)
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="otpModel.errors?.['required']">
+                          Otp is required.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                      <button
+                        class="btn btn-primary"
+                        type="submit"
+                        [disabled]="loginForm.invalid"
+                      >
+                        {{ otpTime ? "Verify OTP" : "Send OTP" }}
+                      </button>
+                    </div>
+
+                    <hr class="my-4" />
+                  </form>
+                  <div class="text-center">
+                    <p class="mb-0">
+                      New to Vmart?
+                      <button
+                        class="text-primary fw-bold cursor-pointer border-0 bg-transparent"
+                        routerLink="/register"
+                      >
+                        Create an account
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner-border text-warning" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

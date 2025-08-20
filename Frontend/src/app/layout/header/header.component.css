@@ -1,0 +1,70 @@
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  z-index: 1000;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search:hover {
+  box-shadow: 0 2px 6px rgb(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.shopping-cart:hover {
+  color: rgb(255, 192, 33);
+}
+
+.login:hover {
+  font-size: 1rem;
+  color: rgb(255, 192, 33);
+  text-decoration: underline rgba(0, 0, 0, 0.348);
+}
+
+.custom-dropdown-position {
+  position: absolute;
+  top: 70px; /* Adjust this value to match your navbar's height */
+  right: 1px; /* Adjust this value for horizontal alignment */
+  z-index: 1050; /* Ensures it appears above other content */
+}
+
+/* Make dropdown items clickable */
+.dropdown-item {
+  cursor: pointer;
+}
+
+
+@media (min-width: 992px) {
+  /* Corresponds to the navbar-expand-lg breakpoint */
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Removes the small gap that can appear on hover */
+    animation: fadeIn 0.2s ease-in-out; /* A subtle fade-in effect */
+  }
+
+  .custom-dropdown-position {
+    top: 60px;
+  }
+}
+
+/* Optional: A simple fade-in animation for a smoother effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

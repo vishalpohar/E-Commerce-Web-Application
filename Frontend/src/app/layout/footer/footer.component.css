@@ -1,0 +1,37 @@
+.dark-footer {
+  background-color: #1c2331;
+  color: #adb5bd; /* Lighter text color for readability */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Headings and Links Styling --- */
+
+.dark-footer h5 {
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Style for the links in the footer lists */
+.dark-footer .list-unstyled a {
+  color: #adb5bd; /* Soft gray for links */
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Change link color on hover for a nice interactive effect */
+.dark-footer .list-unstyled a:hover {
+  color: #ffffff; /* White on hover */
+}
+
+/* --- Bottom Copyright Section --- */
+
+.footer-bottom {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.2
+  ); /* Slightly darker transparent background */
+  color: #adb5bd;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,171 @@
+<div id="heroCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#heroCarousel"
+      *ngFor="let banner of banners; let i = index"
+      [attr.data-bs-slide-to]="i"
+      [class.active]="i === 0"
+      [attr.aria-current]="i === 0 ? 'true' : 'false'"
+    ></button>
+  </div>
+  <div class="carousel-inner">
+    <div
+      class="carousel-item"
+      data-bs-interval="10000"
+      *ngFor="let banner of banners; let i = index"
+      [class.active]="i === 0"
+    >
+      <img
+        [src]="banner.imgUrl"
+        class="d-block carousel-image"
+        priority
+        alt="Promotional Banner"
+      />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#heroCarousel"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#heroCarousel"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div class="p-4">
+  <section class="mb-5 fade-in">
+    <h2 class="mt-4">Fashion</h2>
+    <hr class="border-primary border-1 opacity-50 my-4" />
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-4 mb-4 row-container"
+        *ngFor="let product of fashionProducts"
+      >
+        <div
+          class="card h-100 shadow-sm product-card"
+          (click)="viewProduct(product.id)"
+        >
+          <img
+            [src]="product.imageUrl"
+            class="card-img-top"
+            [alt]="product.name"
+          />
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title fw-bold">
+              {{ product.name | slice : 0 : 50
+              }}{{ product.name.length > 50 ? "..." : "" }}
+            </h6>
+            <p class="card-text mt-auto text-muted">
+              {{ product.price | currency : "INR" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-5 fade-in">
+    <h2 class="mt-4">Electronics</h2>
+    <hr class="border-primary border-1 opacity-50 my-4" />
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-4 mb-4 row-container"
+        *ngFor="let product of electronicsProducts"
+      >
+        <div
+          class="card h-100 shadow-sm product-card"
+          (click)="viewProduct(product.id)"
+        >
+          <img
+            [src]="product.imageUrl"
+            class="card-img-top"
+            [alt]="product.name"
+          />
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title fw-bold">
+              {{ product.name | slice : 0 : 50
+              }}{{ product.name.length > 50 ? "..." : "" }}
+            </h6>
+            <p class="card-text mt-auto text-muted">
+              {{ product.price | currency : "INR" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-5 fade-in">
+    <h2 class="mt-4">Accessories</h2>
+    <hr class="border-primary border-1 opacity-50 my-4" />
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-4 mb-4 row-container"
+        *ngFor="let product of accessoriesProducts"
+      >
+        <div
+          class="card h-100 shadow-sm product-card"
+          (click)="viewProduct(product.id)"
+        >
+          <img
+            [src]="product.imageUrl"
+            class="card-img-top"
+            [alt]="product.name"
+          />
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title fw-bold">
+              {{ product.name | slice : 0 : 50
+              }}{{ product.name.length > 50 ? "..." : "" }}
+            </h6>
+            <p class="card-text mt-auto text-muted">
+              {{ product.price | currency : "INR" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-5 fade-in">
+    <h2 class="mt-4">Wearables</h2>
+    <hr class="border-primary border-1 opacity-50 my-4" />
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-4 mb-4 row-container"
+        *ngFor="let product of wearablesProducts"
+      >
+        <div
+          class="card h-100 shadow-sm product-card"
+          (click)="viewProduct(product.id)"
+        >
+          <img
+            [src]="product.imageUrl"
+            class="card-img-top"
+            [alt]="product.name"
+          />
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title fw-bold">
+              {{ product.name | slice : 0 : 50
+              }}{{ product.name.length > 50 ? "..." : "" }}
+            </h6>
+            <p class="card-text mt-auto text-muted">
+              {{ product.price | currency : "INR" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
